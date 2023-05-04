@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+from neural import test_and_train_separation,neural_train,prediction
 import matplotlib.pyplot as plt
 import seaborn as sns
 plt.style.use('seaborn-v0_8-darkgrid')
@@ -8,15 +8,19 @@ plt.style.use('seaborn-v0_8-darkgrid')
 import warnings
 warnings.filterwarnings('ignore')
 
-
-
 data=pd.read_csv('data/Cancer_Data.csv')
 data['diagnosis'].replace(['M', 'B'], [1, 0], inplace=True)
+#Removendo colunas desnecessárias
+data.drop(columns=['Unnamed: 32','id'],inplace=True)
 
-eixo=sns.countplot(data=data,x='diagnosis')
-plt.title('Verificando Diagnóstico')
-eixo.bar_label(eixo.containers[0],label_type='edge')
+#Descrevendo os dados
+characteristics=data.drop(columns=['diagnosis'])
+proactive=data['diagnosis']
 
-figura, eixo=plt.subplots(figsize=(15,8))
+#Separação e Treino
+x_train,x_test,y_train,y_test=test_and_train_separation(characteristics,proactive)
+mlp=neural_train(x_train,y_train)
 
-corr=data.corr()
+print('Acurácia: ',prediction(x_test,y_test,mlp))
+
+#
