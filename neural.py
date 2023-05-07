@@ -15,7 +15,9 @@ def test_and_train_separation(charac,proac):
     return x_train,x_test,y_train,y_test
     
 def neural_train(x_train,y_train):
-    mlp=MLPClassifier()
+    mlp=MLPClassifier(
+        hidden_layer_sizes=(30),
+    )
     
     mlp.fit(x_train,y_train)
     
