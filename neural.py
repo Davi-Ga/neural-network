@@ -11,7 +11,8 @@ def test_and_train_separation(charac,proac):
     test_size=0.2,
     #Fixar as amostras
     random_state=10
-)   
+    )   
+    
     return x_train,x_test,y_train,y_test
     
 def neural_train(x_train,y_train):
