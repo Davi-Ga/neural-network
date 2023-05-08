@@ -17,7 +17,11 @@ def test_and_train_separation(charac,proac):
     
 def neural_train(x_train,y_train):
     mlp=MLPClassifier(
-        hidden_layer_sizes=(30),
+        hidden_layer_sizes=(100),
+        activation='identity',
+        solver='adam',
+        max_iter=50,
+        verbose=True,
     )
     
     mlp.fit(x_train,y_train)
