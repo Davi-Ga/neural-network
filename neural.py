@@ -27,7 +27,8 @@ def neural_train(x_train,y_train):
     mlp.fit(x_train,y_train)
     
     return mlp
-    
+     
+     
 def prediction(x_test,y_test,mlp):
     y_pred=mlp.predict(x_test)
     
