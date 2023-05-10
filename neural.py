@@ -1,6 +1,8 @@
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
 
 #Faz a divisão dos dados para teste e treino
 def test_and_train_separation(charac,proac):
@@ -15,19 +17,24 @@ def test_and_train_separation(charac,proac):
     
     return x_train,x_test,y_train,y_test
     
-def neural_train(x_train,y_train):
-    mlp=MLPClassifier(
-        hidden_layer_sizes=(100),
-        activation='identity',
-        solver='adam',
-        max_iter=50,
-        verbose=True,
-    )
+def neural_train(charac,proac):
     
-    mlp.fit(x_train,y_train)
+    pipeline=Pipeline([('mlp',MLPClassifier())])
     
-    return mlp
+    parameters={
+    'mlp__hidden_layer_sizes':[(50,),(100,),(150,),(200,)],
+    'mlp__activation':['identity', 'logistic', 'tanh', 'relu'],
+    'mlp__solver':['lbfgs', 'sgd', 'adam'],
+    'mlp__learning_rate':['constant', 'invscaling', 'adaptive'],
+    }
+    
+    grid_search=GridSearchCV(pipeline,param_grid=parameters,cv=5,verbose=2)
+    grid_search.fit(charac,proac)
+    
+    return grid_search.best_score_
+    
      
+   
      
 def prediction(x_test,y_test,mlp):
     y_pred=mlp.predict(x_test)

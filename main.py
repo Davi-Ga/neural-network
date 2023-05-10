@@ -19,8 +19,8 @@ proactive=data['diagnosis']
 
 #Separação e Treino
 x_train,x_test,y_train,y_test=test_and_train_separation(characteristics,proactive)
-mlp=neural_train(x_train,y_train)
 
-print('Acurácia: ',prediction(x_test,y_test,mlp))
+
+print('Acurácia: ',neural_train(characteristics,proactive))
 
 #
