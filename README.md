@@ -1,2 +1,2 @@
-# rede-neural
+# neural-network
 Rede Neural adaptativa
